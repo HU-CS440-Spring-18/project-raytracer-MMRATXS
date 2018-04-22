@@ -20,7 +20,11 @@ int main(int argc, char** argv) {
     out<<"P3\n"<<width<<"\n"<<height<<"\n"<<"255\n";
 
     Sphere sp(Vec(width/2,height/2,50),50);     // sphere object
+
     Color white(255,255,255);                   //coloring color: white
+    Color red(255,0,0);                   //coloring color: white
+    Color green(0,255,0);                   //coloring color: white
+    Color blue(0,0,255);                   //coloring color: white
     static Color pixelColor[height][width];     //color for each pixel
 
     // Iterating the grid 
@@ -34,15 +38,13 @@ int main(int argc, char** argv) {
             // Check for intersections
             if(sp.intersect(ray,t)){
 
-                Vector POI = ray.origin + ray.direction*t;  // POint of intersection
-
-
-                pixelColor[x][y] = white;   // Coloring
+                Vec POI = ray.origin + ray.direction.scale(t);  // POint of intersection
+                pixelColor[x][y] = red.add(white);
             }
 
-            out<<pixelColor[x][y].r << std::endl;
-            out<<pixelColor[x][y].g << std::endl;
-            out<<pixelColor[x][y].b << std::endl;
+            out<<(int)pixelColor[x][y].r << std::endl;
+            out<<(int)pixelColor[x][y].g << std::endl;
+            out<<(int)pixelColor[x][y].b << std::endl;
         }   
     }
     

@@ -12,5 +12,6 @@ struct Sphere{
     Sphere(Vec, double);
 
     bool intersect(Ray ray, double &t);
+    Vec getNormal(Vec POI);
 
 };

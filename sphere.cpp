@@ -7,6 +7,7 @@ Sphere::Sphere(Vec i, double j){
     center=i;
     radius=j;
 }
+
 bool Sphere::intersect(Ray ray, double &t){
     
     Vec oc = ray.origin-center;
@@ -25,4 +26,8 @@ bool Sphere::intersect(Ray ray, double &t){
         t= (t0<t1) ? t0:t1;
         return true;
     }
+}
+
+Vec Sphere::getNormal(Vec POI){
+    return ((center-POI).scale(1/radius));   
 }

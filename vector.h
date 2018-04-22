@@ -22,4 +22,6 @@ struct Vec{
     Vec operator +(Vec v);
     Vec negative();
     Vec scale (double factor);
+    double magnitude();
+    Vec normalize();
 };

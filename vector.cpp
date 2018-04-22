@@ -22,7 +22,7 @@ double Vec::returnZ(){
     return z;
 }
 
-double Vector::dot(Vec v){
+double Vec::dot(Vec v){
     return (v.x*x+v.y*y+v.z*z);
 }
 
@@ -40,4 +40,12 @@ Vec Vec::negative(){
 
 Vec Vec::scale(double factor){
     return Vec(x*factor,y*factor,z*factor);
+}
+
+double Vec::magnitude(){
+    return sqrt( x*x + y*y + z*z);
+}
+
+Vec Vec::normalize(){
+    return Vec(x/magnitude(),y/magnitude(),z/magnitude());
 }
