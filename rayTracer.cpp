@@ -26,8 +26,8 @@ int main(int argc, char** argv) {
     out<<"P3\n"<<width<<"\n"<<height<<"\n"<<"255\n";
 
     //Declaring Objects
-    Sphere sp1(Vec(width/2,height/2,50),40,red);
-    Sphere sp2(Vec(width/2,height/2,60),60,green.add(white).multiply(0.5));
+    Sphere sp1(Vec((width/2)-100,height/2,50),50,red);
+    Sphere sp2(Vec((width/2)+100,height/2,50),50,green.add(white).multiply(0.5));
     Sphere sp3(Vec(width/2,height/2,70),80,red.add(white).multiply(0.6));
     Sphere sp4(Vec(width/2,height/2,80),100,blue.add(white).multiply(0.2));
     
@@ -35,11 +35,11 @@ int main(int argc, char** argv) {
     vector<Sphere> Scene;
     Scene.push_back(sp1);
     Scene.push_back(sp2);
-    Scene.push_back(sp3);
-    Scene.push_back(sp4);
+    // Scene.push_back(sp3);
+    // Scene.push_back(sp4);
 
     //Light Source
-    Sphere light(Vec(0,0,-100),50,white); 
+    Sphere light(Vec(width/2,0,-100),50,white); 
 
     static Color pixelColor[height][width];     //color for each pixel
 
@@ -52,6 +52,7 @@ int main(int argc, char** argv) {
             double t =20000;
             double minDistance =INFINITY;
             int indx=-1;
+            bool isShadow=false;
 
             // Check for the nearest pbject 
             for(int i=0; i<Scene.size(); i++){
@@ -64,8 +65,30 @@ int main(int argc, char** argv) {
                     }
                 }
             }
+
+            // if(indx>-1 && Scene[indx].intersect(ray,t)){  
+            //     Vec POI = ray.origin + ray.direction.negative().scale(t);  // POint of intersection
+            //     cout<<POI.x<<"-"<<POI.y<<"-"<<POI.z<<endl;
+            //     Ray shadowRay(POI,Vec(0,0,(light.center+POI).negative().z));     // Generate a shadow ray
+            //     // shadowRay.direction = light.center - Scene[indx].center;
+            //     for(int i=0; i<Scene.size(); i++){
+            //         if(i!=indx){
+            //             if(Scene[i].intersect(shadowRay,t)){
+            //                 // cout<<shadowRay.direction.x;
+            //                 isShadow=true;
+            //                 break;
+            //             }
+            //         }
+            //     }
+            // }
+            // if(isShadow)
+            // {
+            //     Color black(0,0,0);
+            //     pixelColor[x][y] = black;
+            // }
             // Coloring
-            if(indx>-1 && Scene[indx].intersect(ray,t)){
+            if(indx>-1 && Scene[indx].intersect(ray,t) && !isShadow){
+                // cout<<"here";
                 Vec POI = ray.origin + ray.direction.negative().scale(t);  // POint of intersection
                 Vec L = light.center - POI;
                 Vec N = Scene[indx].getNormal(POI).negative();
