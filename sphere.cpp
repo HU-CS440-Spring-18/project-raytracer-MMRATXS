@@ -3,9 +3,10 @@
 Sphere::Sphere(){
 }
 
-Sphere::Sphere(Vec i, double j){
+Sphere::Sphere(Vec i, double j, Color col){
     center=i;
     radius=j;
+    color = col;
 }
 
 bool Sphere::intersect(Ray ray, double &t){
@@ -30,4 +31,8 @@ bool Sphere::intersect(Ray ray, double &t){
 
 Vec Sphere::getNormal(Vec POI){
     return ((center-POI).scale(1/radius));   
+}
+
+Color Sphere::getColor(){
+    return color;   
 }
