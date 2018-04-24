@@ -5,9 +5,8 @@
 class Light{
 
     public:
+        Vec position;
         Light();
-        Light(Vector3 point, Color color);
-        Color color;
-        Vec point;
+        Light(Vec position);
 
 };
